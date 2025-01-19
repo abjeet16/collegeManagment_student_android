@@ -90,6 +90,7 @@ class authApiClient private constructor(context: Context) {
                 // Parse the response
                 try {
                     val userProfile = Gson().fromJson(response.toString(), UserProfile::class.java)
+                    Log.d("UserProfile", "User Profile: ${userProfile.first_name}, ${userProfile.email}")
                     onSuccess(userProfile)
                 } catch (e: Exception) {
                     onError("Failed to parse the server response.")
