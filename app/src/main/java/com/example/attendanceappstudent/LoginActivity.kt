@@ -21,6 +21,12 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        val sharedPreferences = getSharedPreferences("UserSession", MODE_PRIVATE)
+
+        if (sharedPreferences.getString("token", null) != null) {
+            goToHome()
+        }
+
         binding.signInBtn.setOnClickListener {
             loginUser()
         }

@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "1043688159933",
+    "firebase_url": "https://dinamictimetable-default-rtdb.firebaseio.com",
+    "project_id": "dinamictimetable",
+    "storage_bucket": "dinamictimetable.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1043688159933:android:3d814e02a5014c050095d4",
+        "android_client_info": {
+          "package_name": "com.example.attendanceappstudent"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAPAS3s3KriKeyFJBmBLwR3l2ek35N9Hg4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1043688159933:android:c390019060f2f5550095d4",
+        "android_client_info": {
+          "package_name": "com.example.dinamictimetable"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAPAS3s3KriKeyFJBmBLwR3l2ek35N9Hg4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
