@@ -1,0 +1,34 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="8dp">
+
+    <TextView
+        android:id="@+id/tvSubjectName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:text="Subject Name"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/tvTotalClasses"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Total Classes" />
+
+    <TextView
+        android:id="@+id/tvAttendedClasses"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Attended Classes" />
+
+    <TextView
+        android:id="@+id/tvAttendancePercentage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Attendance Percentage" />
+
+</LinearLayout>

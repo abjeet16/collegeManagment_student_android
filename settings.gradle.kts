@@ -9,6 +9,7 @@ pluginManagement {
         }
         mavenCentral()
         gradlePluginPortal()
+        maven { url = uri("https://jitpack.io") } // Corrected syntax for Kotlin DSL
     }
 }
 dependencyResolutionManagement {
@@ -16,9 +17,14 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven { url = uri("https://jitpack.io") } // Corrected syntax for Kotlin DSL
     }
 }
 
 rootProject.name = "Attendance App Student"
 include(":app")
+
+
+
+
  

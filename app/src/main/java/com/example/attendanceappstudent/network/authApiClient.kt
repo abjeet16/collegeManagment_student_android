@@ -7,6 +7,8 @@ import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.example.attendanceappstudent.data_class.UserLoginRequest
 import com.example.attendanceappstudent.data_class.UserLoginResponse
+import com.example.attendanceappstudent.data_class.UserProfile
+import com.example.attendanceappstudent.data_class.StudentAttendance
 import com.example.attendanceappstudent.helper.ApiLinkHelper
 import com.google.gson.Gson
 import org.json.JSONObject
@@ -73,5 +75,85 @@ class authApiClient private constructor(context: Context) {
 
         // Add the request to the request queue
         requestQueue.add(jsonObjectRequest)
+    }
+
+    fun getUserProfile(
+        token: String,
+        onSuccess: (UserProfile) -> Unit,
+        onError: (String) -> Unit
+    ) {
+        val jsonObjectRequest = object : JsonObjectRequest(
+            Method.GET,  // The method type, GET in this case
+            apiLinkHelper.getUserProfileApiUri(),  // Your API URL
+            null,  // No body for GET requests
+            { response ->  // Success listener
+                // Parse the response
+                try {
+                    val userProfile = Gson().fromJson(response.toString(), UserProfile::class.java)
+                    onSuccess(userProfile)
+                } catch (e: Exception) {
+                    onError("Failed to parse the server response.")
+                }
+            },
+            { error ->  // Error listener
+                if (error.networkResponse != null) {
+                    val errorResponse = String(error.networkResponse.data)
+                    Log.e("ApiClient", "Error Response: $errorResponse")
+                    onError(errorResponse)
+                } else {
+                    Log.e("ApiClient", "Unknown Error: ${error.message}")
+                    onError(error.message ?: "Unknown error occurred.")
+                }
+            }
+        ) {
+            // Add Authorization header with Bearer token
+            override fun getHeaders(): Map<String, String> {
+                val headers = mutableMapOf<String, String>()
+                headers["Authorization"] = "Bearer $token"
+                return headers
+            }
+        }
+
+        requestQueue.add(jsonObjectRequest) // Add the request to the queue
+    }
+
+    fun getUserAttendance(
+        token: String,
+        onSuccess: (StudentAttendance) -> Unit,
+        onError: (String) -> Unit
+    ) {
+        val jsonObjectRequest = object : JsonObjectRequest(
+            Method.GET,  // The method type, GET in this case
+            apiLinkHelper.getStudentAttendanceApiUri(),  // Your API URL
+            null,  // No body for GET requests
+            { response ->  // Success listener
+                // Parse the response
+                try {
+                    val studentAttendance = Gson().fromJson(response.toString(), StudentAttendance::class.java)
+                    onSuccess(studentAttendance)
+                } catch (e: Exception) {
+                    onError("Failed to parse the server response.")
+                }
+            },
+            { error ->  // Error listener
+                if (error.networkResponse != null) {
+                    val errorResponse = String(error.networkResponse.data)
+                    Log.e("ApiClient", "Error Response: $errorResponse")
+                    onError(errorResponse)
+                } else {
+                    Log.e("ApiClient", "Unknown Error: ${error.message}")
+                    onError(error.message ?: "Unknown error occurred.")
+                }
+            }
+        ) {
+            // Add Authorization header with Bearer token
+            override fun getHeaders(): Map<String, String> {
+                val headers = mutableMapOf<String, String>()
+                headers["Authorization"] = "Bearer $token"
+                return headers
+            }
+        }
+
+        requestQueue.add(jsonObjectRequest) // Add the request to the queue
     }
 }

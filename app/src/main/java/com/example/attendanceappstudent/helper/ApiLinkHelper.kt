@@ -6,4 +6,12 @@ class ApiLinkHelper {
     fun loginUserApiUri(): String {
         return BASE_URL + "auth/user/login"
     }
+
+    fun getUserProfileApiUri(): String? {
+        return BASE_URL+"User/my_profile"
+    }
+
+    fun getStudentAttendanceApiUri(): String? {
+        return BASE_URL+"student/my_overall_attendences"
+    }
 }
