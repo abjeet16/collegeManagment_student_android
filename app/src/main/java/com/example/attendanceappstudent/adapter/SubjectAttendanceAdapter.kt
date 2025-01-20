@@ -32,7 +32,7 @@ class SubjectAttendanceAdapter(
         }
         holder.totalClasses.text = "Total Classes: ${subject?.totalClasses}"
         holder.attendedClasses.text = "Attended: ${subject?.attendedClasses}"
-        holder.attendancePercentage.text = "Attendance: ${subject?.attendancePercentage}%"
+        holder.attendancePercentage.text = "Attendance: ${String.format("%.2f", subject?.attendancePercentage)}%"
     }
 
     override fun getItemCount(): Int = subjectList?.size ?: 0

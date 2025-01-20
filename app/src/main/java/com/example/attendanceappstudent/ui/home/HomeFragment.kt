@@ -45,20 +45,20 @@ class HomeFragment : Fragment() {
         val sharedPreferences = requireContext().getSharedPreferences("UserSession", MODE_PRIVATE)
         val token = sharedPreferences.getString("token", null)
         if (token != null){
-            getAttendence(token)
+            getAttendance(token)
         }
 
         return root
     }
 
-    private fun getAttendence(token: String) {
+    private fun getAttendance(token: String) {
         authApiClient.getInstance(requireContext()).getUserAttendance(
             token = token,
             onSuccess = { success ->
                 // Handle success: do something with the attendance data
                 Log.d("responseSB", "Attendance retrieved: $success")
                 studentAttendance = success
-                setUpAttendence(studentAttendance)
+                setUpAttendance(studentAttendance)
                 setUpRecyclerView(studentAttendance.subjectAttendances)
                 // Update UI or process the attendance object
                 // For example, show the data in a TextView
@@ -79,7 +79,7 @@ class HomeFragment : Fragment() {
         binding.recyclerView.adapter = adapter
     }
 
-    private fun setUpAttendence(studentAttendance: StudentAttendance) {
+    private fun setUpAttendance(studentAttendance: StudentAttendance) {
 
         binding.apply {
             val entries = listOf(
