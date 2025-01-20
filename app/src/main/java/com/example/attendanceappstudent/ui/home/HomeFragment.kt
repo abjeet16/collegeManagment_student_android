@@ -7,14 +7,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity.MODE_PRIVATE
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.attendanceappstudent.R
 import com.example.attendanceappstudent.adapter.SubjectAttendanceAdapter
 import com.example.attendanceappstudent.data_class.StudentAttendance
 import com.example.attendanceappstudent.data_class.SubjectAttendance
 import com.example.attendanceappstudent.databinding.FragmentHomeBinding
-import com.example.attendanceappstudent.network.authApiClient
+import com.example.attendanceappstudent.network.ApiClient
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
@@ -52,7 +54,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun getAttendance(token: String) {
-        authApiClient.getInstance(requireContext()).getUserAttendance(
+        ApiClient.getInstance(requireContext()).getUserAttendance(
             token = token,
             onSuccess = { success ->
                 // Handle success: do something with the attendance data
@@ -74,7 +76,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun setUpRecyclerView(subjectAttendances: List<SubjectAttendance?>?) {
-        adapter = SubjectAttendanceAdapter(subjectAttendances)
+        adapter = SubjectAttendanceAdapter(subjectAttendances, onClickListener = ::onClickListener)
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerView.adapter = adapter
     }
@@ -89,12 +91,15 @@ class HomeFragment : Fragment() {
 
             // Create PieDataSet
             val dataSet = PieDataSet(entries,"")
-            dataSet.colors = ColorTemplate.MATERIAL_COLORS.asList()
+            dataSet.colors = listOf(
+                ContextCompat.getColor(requireContext(), R.color.present),
+                ContextCompat.getColor(requireContext(), R.color.absent)
+            )
 
             // Create PieData
             val pieData = PieData(dataSet)
             pieData.setValueTextSize(12f)
-            pieData.setValueTextColor(android.graphics.Color.BLACK)
+            pieData.setValueTextColor(android.graphics.Color.WHITE)
 
             // Set the data to the chart
             pieChart.data = pieData
@@ -102,11 +107,15 @@ class HomeFragment : Fragment() {
             pieChart.isDrawHoleEnabled = true
             pieChart.setHoleColor(android.graphics.Color.WHITE)
             pieChart.setUsePercentValues(true)
-            pieChart.centerText = "OverAll Attendance"
+            //pieChart.centerText = "OverAll Attendance"
             pieChart.animateY(1000)
+            pieChart.legend.isEnabled = false
 
             pieChart.invalidate() // Refresh the chart
         }
+    }
+    fun onClickListener(subjectId: Int){
+        Toast.makeText(requireContext(), "Subject ID: $subjectId", Toast.LENGTH_SHORT).show()
     }
 
     override fun onDestroyView() {

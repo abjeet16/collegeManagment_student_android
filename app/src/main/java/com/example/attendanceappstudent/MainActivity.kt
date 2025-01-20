@@ -6,7 +6,6 @@ import android.util.Log
 import android.view.Menu
 import android.widget.TextView
 import android.widget.Toast
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -17,7 +16,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.example.attendanceappstudent.data_class.UserProfile
 import com.example.attendanceappstudent.databinding.ActivityMainBinding
-import com.example.attendanceappstudent.network.authApiClient
+import com.example.attendanceappstudent.network.ApiClient
 
 class MainActivity : AppCompatActivity() {
 
@@ -61,7 +60,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getUserInfo(token: String) {
-        authApiClient.getInstance(this).getUserProfile(
+        ApiClient.getInstance(this).getUserProfile(
             token = token,
             onSuccess = { userProfile ->
                 // Handle the success response

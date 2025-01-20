@@ -2,16 +2,12 @@ package com.example.attendanceappstudent
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.example.attendanceappstudent.data_class.UserLoginRequest
 import com.example.attendanceappstudent.data_class.UserLoginResponse
 import com.example.attendanceappstudent.databinding.ActivityLoginBinding
-import com.example.attendanceappstudent.network.authApiClient
+import com.example.attendanceappstudent.network.ApiClient
 
 class LoginActivity : AppCompatActivity() {
     private val binding by lazy {
@@ -47,7 +43,7 @@ class LoginActivity : AppCompatActivity() {
         val user = UserLoginRequest(binding.email.text.toString(), binding.password.text.toString())
 
         // Call the API to log in the user
-        authApiClient.getInstance(this).loginUser(
+        ApiClient.getInstance(this).loginUser(
             user = user,
             onSuccess = { response ->
                 // Save user session

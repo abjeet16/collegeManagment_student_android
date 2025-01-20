@@ -19,4 +19,7 @@
         <color name="status_available">#00FF00</color> <!-- Green for available -->
         <color name="status_issued">#FFFF00</color>    <!-- Yellow for issued -->
         <color name="status_damaged">#FF0000</color>  <!-- Red for damaged -->
+
+    <color name="present">#4CAF50</color> <!-- Soft Green -->
+    <color name="absent">#F44336</color> <!-- Soft Red -->
 </resources>

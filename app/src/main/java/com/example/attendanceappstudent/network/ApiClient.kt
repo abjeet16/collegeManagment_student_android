@@ -13,17 +13,17 @@ import com.example.attendanceappstudent.helper.ApiLinkHelper
 import com.google.gson.Gson
 import org.json.JSONObject
 
-class authApiClient private constructor(context: Context) {
+class ApiClient private constructor(context: Context) {
     private val requestQueue: RequestQueue = Volley.newRequestQueue(context.applicationContext)
     private val apiLinkHelper = ApiLinkHelper()
 
     companion object {
         @Volatile
-        private var INSTANCE: authApiClient? = null
+        private var INSTANCE: ApiClient? = null
 
-        fun getInstance(context: Context): authApiClient {
+        fun getInstance(context: Context): ApiClient {
             return INSTANCE ?: synchronized(this) {
-                INSTANCE ?: authApiClient(context).also { INSTANCE = it }
+                INSTANCE ?: ApiClient(context).also { INSTANCE = it }
             }
         }
     }
@@ -131,6 +131,7 @@ class authApiClient private constructor(context: Context) {
                 // Parse the response
                 try {
                     val studentAttendance = Gson().fromJson(response.toString(), StudentAttendance::class.java)
+                    Log.d("subjectAtt",studentAttendance.subjectAttendances.toString())
                     onSuccess(studentAttendance)
                 } catch (e: Exception) {
                     onError("Failed to parse the server response.")
