@@ -124,8 +124,8 @@ class HomeFragment : Fragment() {
         }
     }
     fun onClickListener(subjectId: Int){
-        val action = HomeFragmentDirections.actionNavHomeToSubjectAbsentFragment(subjectId)
-        requireActivity().findNavController(R.id.nav_home).navigate(action)
+        val action = HomeFragmentDirections.actionHomeToSubjectAbsentFragment(subjectId)
+        requireActivity().findNavController(R.id.nav_host_fragment_content_main).navigate(action)
     }
 
     override fun onDestroyView() {

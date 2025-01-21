@@ -14,4 +14,8 @@ class ApiLinkHelper {
     fun getStudentAttendanceApiUri(): String? {
         return BASE_URL+"student/my_overall_attendences"
     }
+
+    fun getSubjectAbsentDetailsApiUri(subjectId: Int): String? {
+        return BASE_URL+"student/subject/${subjectId}/absents"
+    }
 }

@@ -3,14 +3,17 @@ package com.example.attendanceappstudent.network
 import android.content.Context
 import android.util.Log
 import com.android.volley.RequestQueue
+import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.example.attendanceappstudent.data_class.UserLoginRequest
 import com.example.attendanceappstudent.data_class.UserLoginResponse
 import com.example.attendanceappstudent.data_class.UserProfile
 import com.example.attendanceappstudent.data_class.StudentAttendance
+import com.example.attendanceappstudent.data_class.SubjectAndDateDTO
 import com.example.attendanceappstudent.helper.ApiLinkHelper
 import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import org.json.JSONObject
 
 class ApiClient private constructor(context: Context) {
@@ -157,5 +160,47 @@ class ApiClient private constructor(context: Context) {
         }
 
         requestQueue.add(jsonObjectRequest) // Add the request to the queue
+    }
+
+    fun getSubjectAbsentDetails(
+        token: String,
+        subjectId: Int,
+        onSuccess: (List<SubjectAndDateDTO.SubjectAndDateDTOItem>) -> Unit,
+        onError: (String) -> Unit
+    ) {
+        val jsonArrayRequest = object : JsonArrayRequest(
+            Method.GET,  // The method type, GET in this case
+            apiLinkHelper.getSubjectAbsentDetailsApiUri(subjectId),  // Your API URL
+            null,  // No body for GET requests
+            { response ->  // Success listener
+                try {
+                    // Parse the response as a list of SubjectAndDateDTOItem
+                    val absentListType = object : TypeToken<List<SubjectAndDateDTO.SubjectAndDateDTOItem>>() {}.type
+                    val absentList = Gson().fromJson<List<SubjectAndDateDTO.SubjectAndDateDTOItem>>(response.toString(), absentListType)
+                    onSuccess(absentList)
+                } catch (e: Exception) {
+                    onError("Failed to parse the server response.")
+                }
+            },
+            { error ->  // Error listener
+                if (error.networkResponse != null) {
+                    val errorResponse = String(error.networkResponse.data)
+                    Log.e("ApiClient", "Error Response: $errorResponse")
+                    onError(errorResponse)
+                } else {
+                    Log.e("ApiClient", "Unknown Error: ${error.message}")
+                    onError(error.message ?: "Unknown error occurred.")
+                }
+            }
+        ) {
+            // Add Authorization header with Bearer token
+            override fun getHeaders(): Map<String, String> {
+                val headers = mutableMapOf<String, String>()
+                headers["Authorization"] = "Bearer $token"
+                return headers
+            }
+        }
+
+        requestQueue.add(jsonArrayRequest) // Add the request to the queue
     }
 }

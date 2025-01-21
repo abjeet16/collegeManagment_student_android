@@ -11,12 +11,8 @@
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home" >
         <action
-            android:id="@+id/action_nav_home_to_subjectAbsentFragment"
-            app:destination="@id/subjectAbsentFragment">
-            <argument
-                android:name="subjectId"
-                app:argType="integer" />
-        </action>
+            android:id="@+id/action_home_to_subjectAbsentFragment"
+            app:destination="@id/subjectAbsentFragment" />
     </fragment>
 
     <fragment
