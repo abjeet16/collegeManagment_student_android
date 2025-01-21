@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity.MODE_PRIVATE
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.attendanceappstudent.R
 import com.example.attendanceappstudent.adapter.SubjectAttendanceAdapter
@@ -17,6 +18,7 @@ import com.example.attendanceappstudent.data_class.StudentAttendance
 import com.example.attendanceappstudent.data_class.SubjectAttendance
 import com.example.attendanceappstudent.databinding.FragmentHomeBinding
 import com.example.attendanceappstudent.network.ApiClient
+import com.example.attendanceappstudent.ui.subjectAbsent.SubjectAbsentFragment
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
@@ -83,9 +85,16 @@ class HomeFragment : Fragment() {
 
     private fun setUpAttendance(studentAttendance: StudentAttendance) {
 
+        val presentCount = studentAttendance.percentageCount!!.toFloat()
+        var absentCount = 100 - presentCount
+
+        if (presentCount == 0f){
+            binding.pieChart.visibility = View.GONE
+        }
+
         binding.apply {
             val entries = listOf(
-                studentAttendance.percentageCount?.let { PieEntry(it.toFloat(), "Present") },
+                PieEntry(presentCount, "Present"),
                 PieEntry(100-studentAttendance.percentageCount!!.toFloat(), "Absent")
             )
 
@@ -115,7 +124,8 @@ class HomeFragment : Fragment() {
         }
     }
     fun onClickListener(subjectId: Int){
-        Toast.makeText(requireContext(), "Subject ID: $subjectId", Toast.LENGTH_SHORT).show()
+        val action = HomeFragmentDirections.actionNavHomeToSubjectAbsentFragment(subjectId)
+        requireActivity().findNavController(R.id.nav_home).navigate(action)
     }
 
     override fun onDestroyView() {

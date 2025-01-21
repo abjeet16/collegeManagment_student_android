@@ -15,4 +15,6 @@
     <string name="go_to_sign_in">Already Have and account? Sign In</string>
     <!-- For Sign In Page / Activity -->
     <string name="go_to_sign_up">Don\'t Have and account? Sign Up</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
