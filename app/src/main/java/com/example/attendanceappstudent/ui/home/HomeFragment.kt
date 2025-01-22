@@ -1,5 +1,6 @@
 package com.example.attendanceappstudent.ui.home
 
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -22,6 +23,7 @@ import com.example.attendanceappstudent.ui.subjectAbsent.SubjectAbsentFragment
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
+import com.github.mikephil.charting.formatter.PercentFormatter
 import com.github.mikephil.charting.utils.ColorTemplate
 
 class HomeFragment : Fragment() {
@@ -59,19 +61,11 @@ class HomeFragment : Fragment() {
         ApiClient.getInstance(requireContext()).getUserAttendance(
             token = token,
             onSuccess = { success ->
-                // Handle success: do something with the attendance data
-                Log.d("responseSB", "Attendance retrieved: $success")
                 studentAttendance = success
                 setUpAttendance(studentAttendance)
                 setUpRecyclerView(studentAttendance.subjectAttendances)
-                // Update UI or process the attendance object
-                // For example, show the data in a TextView
             },
             onError = { errorMessage ->
-                // Handle error: display error message or log it
-                Log.e("MainActivity", "Error retrieving attendance: $errorMessage")
-
-                // Show the error to the user
                 Toast.makeText(requireContext(), "Error: $errorMessage", Toast.LENGTH_SHORT).show()
             }
         )
@@ -86,7 +80,7 @@ class HomeFragment : Fragment() {
     private fun setUpAttendance(studentAttendance: StudentAttendance) {
 
         val presentCount = studentAttendance.percentageCount!!.toFloat()
-        var absentCount = 100 - presentCount
+        val absentCount = 100 - presentCount
 
         if (presentCount == 0f){
             binding.pieChart.visibility = View.GONE
@@ -95,32 +89,35 @@ class HomeFragment : Fragment() {
         binding.apply {
             val entries = listOf(
                 PieEntry(presentCount, "Present"),
-                PieEntry(100-studentAttendance.percentageCount!!.toFloat(), "Absent")
+                PieEntry(absentCount, "Absent")
             )
-
             // Create PieDataSet
-            val dataSet = PieDataSet(entries,"")
-            dataSet.colors = listOf(
-                ContextCompat.getColor(requireContext(), R.color.present),
-                ContextCompat.getColor(requireContext(), R.color.absent)
-            )
-
-            // Create PieData
-            val pieData = PieData(dataSet)
-            pieData.setValueTextSize(12f)
-            pieData.setValueTextColor(android.graphics.Color.WHITE)
-
-            // Set the data to the chart
+            val dataSet = PieDataSet(entries, "").apply {
+                colors = listOf(
+                    ContextCompat.getColor(requireContext(), R.color.present),
+                    ContextCompat.getColor(requireContext(), R.color.absent)
+                )
+                valueTextSize = 14f                    // Set text size
+                valueTextColor = Color.WHITE          // Set text color
+                valueFormatter = PercentFormatter(pieChart) // Attach PercentFormatter with the pie chart
+            }
+            // Configure PieChart
+            pieChart.apply {
+                setUsePercentValues(true)            // Enable percentage mode
+                isDrawHoleEnabled = true             // Optional: Hole in the center
+                setEntryLabelTextSize(12f)           // Label size
+                setEntryLabelColor(Color.WHITE)      // Label color
+                description.isEnabled = false        // Disable description
+                legend.isEnabled = false              // Show legend
+            }
+            // Create PieData and set it to PieChart
+            val pieData = PieData(dataSet).apply {
+                setValueTextSize(14f)                // Value text size
+                setValueTextColor(Color.WHITE)       // Value text color
+            }
+            // Set data and refresh the chart
             pieChart.data = pieData
-            pieChart.description.isEnabled = false
-            pieChart.isDrawHoleEnabled = true
-            pieChart.setHoleColor(android.graphics.Color.WHITE)
-            pieChart.setUsePercentValues(true)
-            //pieChart.centerText = "OverAll Attendance"
-            pieChart.animateY(1000)
-            pieChart.legend.isEnabled = false
-
-            pieChart.invalidate() // Refresh the chart
+            pieChart.invalidate() // Refresh chart
         }
     }
     fun onClickListener(subjectId: Int){
