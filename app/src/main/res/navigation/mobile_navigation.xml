@@ -16,10 +16,10 @@
     </fragment>
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.example.attendanceappstudent.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        android:id="@+id/nav_InternalsMarks"
+        android:name="com.example.attendanceappstudent.ui.internalsmarks.InternalsMarksFragment"
+        android:label="@string/menu_InternalsMarks"
+        tools:layout="@layout/fragment_internals_marks" />
 
     <fragment
         android:id="@+id/nav_slideshow"
@@ -30,7 +30,7 @@
     <fragment
         android:id="@+id/subjectAbsentFragment"
         android:name="com.example.attendanceappstudent.ui.subjectAbsent.SubjectAbsentFragment"
-        android:label="fragment_subject_absent"
+        android:label="Absent Days"
         tools:layout="@layout/fragment_subject_absent" >
         <argument
             android:name="subjectId"
