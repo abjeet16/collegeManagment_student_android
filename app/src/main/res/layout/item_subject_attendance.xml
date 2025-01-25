@@ -3,33 +3,53 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:id="@+id/root"
-    android:padding="8dp">
+    android:padding="16dp"
+    android:layout_margin="8dp"
+    android:background="@drawable/background_card">
 
+    <!-- Subject Name -->
     <TextView
         android:id="@+id/tvSubjectName"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textStyle="bold"
         android:text="Subject Name"
-        android:textSize="16sp" />
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:fontFamily="sans-serif-medium"
+        android:textColor="@color/black" />
 
+    <!-- Total Classes -->
     <TextView
         android:id="@+id/tvTotalClasses"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Total Classes" />
+        android:layout_marginTop="8dp"
+        android:text="Total Classes: 50"
+        android:textSize="14sp"
+        android:fontFamily="sans-serif"
+        android:textColor="@color/gray" />
 
+    <!-- Attended Classes -->
     <TextView
         android:id="@+id/tvAttendedClasses"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Attended Classes" />
+        android:layout_marginTop="4dp"
+        android:text="Attended Classes: 45"
+        android:textSize="14sp"
+        android:fontFamily="sans-serif"
+        android:textColor="@color/gray" />
 
+    <!-- Attendance Percentage -->
     <TextView
         android:id="@+id/tvAttendancePercentage"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Attendance Percentage" />
-
+        android:layout_marginTop="4dp"
+        android:text="Attendance Percentage: 90%"
+        android:textSize="14sp"
+        android:fontFamily="sans-serif"
+        android:textColor="@color/tropical_blue" />
 </LinearLayout>
+
+

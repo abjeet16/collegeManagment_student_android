@@ -25,6 +25,8 @@
 
     <color name="medium_purple">#9575CD</color>
 
+    <color name="bright_gray">#E0E0E0</color> <!-- Brighter shade for text -->
+
     <color name="light_gray">#F2F2F2</color> <!-- Subtle gray background -->
     <color name="soft_purple">#C1AEE9</color> <!-- Soft purple for border -->
     <color name="gray">#A0A0A0</color>
