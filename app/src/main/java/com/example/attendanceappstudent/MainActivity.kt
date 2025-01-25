@@ -78,16 +78,6 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.main, menu)
-        return true
-    }
-
-    override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.nav_host_fragment_content_main)
-        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
-    }
     private fun setUserData(navView: NavigationView, userProfile: UserProfile) {
 
         // Set the user name and email into the NavigationView header
@@ -99,5 +89,16 @@ class MainActivity : AppCompatActivity() {
         nameTextView.text = userProfile.first_name + " " + userProfile.last_name
         emailTextView.text = userProfile.email
         phoneTextView.text = userProfile.phone.toString()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        menuInflater.inflate(R.menu.main, menu)
+        return true
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        val navController = findNavController(R.id.nav_host_fragment_content_main)
+        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 }
