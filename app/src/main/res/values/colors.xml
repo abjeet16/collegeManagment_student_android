@@ -22,4 +22,11 @@
 
     <color name="present">#4CAF50</color> <!-- Soft Green -->
     <color name="absent">#F44336</color> <!-- Soft Red -->
+
+    <color name="medium_purple">#9575CD</color>
+
+    <color name="light_gray">#F2F2F2</color> <!-- Subtle gray background -->
+    <color name="soft_purple">#C1AEE9</color> <!-- Soft purple for border -->
+    <color name="gray">#A0A0A0</color>
+    <color name="tropical_blue_light">#D5EAF5</color> <!-- Lighter blue for gradient -->
 </resources>

@@ -12,5 +12,19 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+
+        <!-- Add custom popup menu and item text appearance -->
+        <item name="popupMenuStyle">@style/PopupMenuStyle</item>
+        <item name="android:itemTextAppearance">@style/MenuTextStyle</item>
+    </style>
+
+    <!-- Custom Menu Text Style -->
+    <style name="MenuTextStyle" parent="TextAppearance.AppCompat.Menu">
+        <item name="android:textColor">@color/white</item> <!-- Text color for menu items -->
+    </style>
+
+    <!-- Custom Popup Menu Style -->
+    <style name="PopupMenuStyle" parent="Widget.AppCompat.PopupMenu.Overflow">
+        <item name="android:popupBackground">@color/black</item> <!-- Background color for the menu -->
     </style>
 </resources>
