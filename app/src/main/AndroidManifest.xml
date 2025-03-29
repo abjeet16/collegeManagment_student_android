@@ -32,5 +32,4 @@
             android:theme="@style/Theme.AttendanceAppStudent.NoActionBar">
         </activity>
     </application>
-
 </manifest>
