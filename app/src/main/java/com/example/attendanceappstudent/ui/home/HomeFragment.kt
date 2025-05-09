@@ -85,7 +85,6 @@ class HomeFragment : Fragment() {
         if (presentCount == 0f){
             binding.pieChart.visibility = View.GONE
         }
-
         binding.apply {
             val entries = listOf(
                 PieEntry(presentCount, "Present"),
