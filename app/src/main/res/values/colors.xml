@@ -31,4 +31,6 @@
     <color name="soft_purple">#C1AEE9</color> <!-- Soft purple for border -->
     <color name="gray">#A0A0A0</color>
     <color name="tropical_blue_light">#D5EAF5</color> <!-- Lighter blue for gradient -->
+
+    <color name="nie_logo_border">#242667</color>
 </resources>
